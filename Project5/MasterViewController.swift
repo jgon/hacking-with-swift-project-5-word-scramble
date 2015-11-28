@@ -16,6 +16,7 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "promptForAnswer")
         allWords = loadWordsFromFile(NSBundle.mainBundle())
         startGame()
     }
@@ -60,5 +61,25 @@ class MasterViewController: UITableViewController {
         title = allWords[0]
         userAnswers.removeAll(keepCapacity: true)
         tableView.reloadData()
+    }
+    
+    func promptForAnswer() {
+        let alertController = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .Alert)
+        alertController.addTextFieldWithConfigurationHandler(nil)
+
+        let submitAction = UIAlertAction(title: "Submit", style: .Default) { [unowned self, alertController] (action: UIAlertAction!) in
+            let answer = alertController.textFields![0]
+            self.submitAnswer(answer.text!)
+        }
+        alertController.addAction(submitAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func submitAnswer(value: String) {
+        
     }
 }
