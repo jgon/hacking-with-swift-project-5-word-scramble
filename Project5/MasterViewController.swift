@@ -16,13 +16,7 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let wordsFilePath = NSBundle.mainBundle().pathForResource("start", ofType: "txt") {
-            if let wordsFileContent = try? String(contentsOfFile: wordsFilePath, usedEncoding: nil) {
-                allWords = wordsFileContent.componentsSeparatedByString("\n")
-            }
-        } else {
-            allWords = ["silkworm"]
-        }
+        allWords = loadWordsFromFile(NSBundle.mainBundle())
         startGame()
     }
 
@@ -47,6 +41,18 @@ class MasterViewController: UITableViewController {
         let object = userAnswers[indexPath.row]
         cell.textLabel!.text = object
         return cell
+    }
+    
+    func loadWordsFromFile(bundle: NSBundle) -> [String] {
+        let defaultResult = ["silkworm"]
+        if let wordsFilePath = bundle.pathForResource("start", ofType: "txt") {
+            if let wordsFileContent = try? String(contentsOfFile: wordsFilePath, usedEncoding: nil) {
+                return wordsFileContent.componentsSeparatedByString("\n")
+            }
+        } else {
+            return defaultResult
+        }
+        return defaultResult
     }
     
     func startGame() {
