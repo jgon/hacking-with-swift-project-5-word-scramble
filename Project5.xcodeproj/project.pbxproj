@@ -80,12 +80,12 @@
 			isa = PBXGroup;
 			children = (
 				C47A13FE1C08BA380027E1BA /* AppDelegate.swift */,
-				C47A14001C08BA380027E1BA /* MasterViewController.swift */,
-				C47A14021C08BA380027E1BA /* DetailViewController.swift */,
-				C47A14041C08BA380027E1BA /* Main.storyboard */,
 				C47A14071C08BA380027E1BA /* Assets.xcassets */,
-				C47A14091C08BA380027E1BA /* LaunchScreen.storyboard */,
+				C47A14021C08BA380027E1BA /* DetailViewController.swift */,
 				C47A140C1C08BA380027E1BA /* Info.plist */,
+				C47A14091C08BA380027E1BA /* LaunchScreen.storyboard */,
+				C47A14041C08BA380027E1BA /* Main.storyboard */,
+				C47A14001C08BA380027E1BA /* MasterViewController.swift */,
 			);
 			path = Project5;
 			sourceTree = "<group>";
@@ -97,7 +97,7 @@
 				C47A14171C08BA380027E1BA /* Info.plist */,
 			);
 			path = Project5Tests;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -390,6 +390,7 @@
 				C47A141C1C08BA380027E1BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C47A141D1C08BA380027E1BA /* Build configuration list for PBXNativeTarget "Project5Tests" */ = {
 			isa = XCConfigurationList;
@@ -398,6 +399,7 @@
 				C47A141F1C08BA380027E1BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
