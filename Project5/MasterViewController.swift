@@ -68,14 +68,14 @@ class MasterViewController: UITableViewController {
         let alertController = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .Alert)
         alertController.addTextFieldWithConfigurationHandler(nil)
         
-        let submitAction = UIAlertAction(title: "Submit", style: .Default, handler: {
+        let checkAction = UIAlertAction(title: "Check", style: .Default, handler: {
                 // self and alertController are unowned references to prevent memory leaks in the closure (circular references).
                 [unowned self, alertController] (action: UIAlertAction!) in
                 let answerTextField = alertController.textFields![0]
-                self.submitAnswer(answerTextField.text!)
+                self.checkAnswer(answerTextField.text!)
             }
         )
-        alertController.addAction(submitAction)
+        alertController.addAction(checkAction)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         alertController.addAction(cancelAction)
@@ -83,7 +83,7 @@ class MasterViewController: UITableViewController {
         presentViewController(alertController, animated: true, completion: nil)
     }
 
-    func submitAnswer(answer: String) {
+    func checkAnswer(answer: String) {
         
         let showErrorMessage = { [unowned self] (title: String, message: String) in
             let errorMessageController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
@@ -103,17 +103,17 @@ class MasterViewController: UITableViewController {
         
         let lowercaseAnswer = answer.lowercaseString
 
-        if !wordIsPossible(lowercaseAnswer) {
+        if !isAnswerPossible(lowercaseAnswer) {
             showErrorMessage("Word not possible", "You can't spell '\(lowercaseAnswer)' from '\(title!.lowercaseString)'!")
             return
         }
         
-        if !wordIsOriginal(lowercaseAnswer) {
+        if !isAnswerOriginal(lowercaseAnswer) {
             showErrorMessage("'\(answer)' word already used", "Be more original!")
             return
         }
         
-        if !wordIsReal(lowercaseAnswer) {
+        if !isAnswerARealWord(lowercaseAnswer) {
             showErrorMessage("Unknown word '\(answer)'", "You can't just make words up, you know!")
             return
         }
@@ -126,7 +126,7 @@ class MasterViewController: UITableViewController {
         tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
     
-    func wordIsPossible(answer: String) -> Bool {
+    func isAnswerPossible(answer: String) -> Bool {
         var lowercaseWord = title!.lowercaseString
         for character in answer.characters {
             if let position = lowercaseWord.rangeOfString(String(character)) {
@@ -138,11 +138,11 @@ class MasterViewController: UITableViewController {
         return true
     }
     
-    func wordIsOriginal(answer: String) -> Bool {
+    func isAnswerOriginal(answer: String) -> Bool {
         return !userAnswers.contains(answer)
     }
     
-    func wordIsReal(answer: String) -> Bool {
+    func isAnswerARealWord(answer: String) -> Bool {
         let checker = UITextChecker()
         let checkRange = NSMakeRange(0, answer.characters.count)
         let range = checker.rangeOfMisspelledWordInString(answer, range: checkRange, startingAt: 0, wrap: false, language: "en")
