@@ -17,8 +17,6 @@ class MasterViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "promptForAnswer")
-        
         allWords = loadWordsFromFile(NSBundle.mainBundle())
         startGame()
     }
@@ -65,14 +63,14 @@ class MasterViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    func promptForAnswer() {
+    @IBAction func promptForAnswer(sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .Alert)
         alertController.addTextFieldWithConfigurationHandler(nil)
-
+        
         let submitAction = UIAlertAction(title: "Submit", style: .Default, handler: {
             [unowned self, alertController] (action: UIAlertAction!) in
-                let answerTextField = alertController.textFields![0]
-                self.submitAnswer(answerTextField.text!)
+            let answerTextField = alertController.textFields![0]
+            self.submitAnswer(answerTextField.text!)
             }
         )
         alertController.addAction(submitAction)
@@ -82,7 +80,7 @@ class MasterViewController: UITableViewController {
         
         presentViewController(alertController, animated: true, completion: nil)
     }
-    
+
     func submitAnswer(value: String) {
         let lowercaseValue = value.lowercaseString
         if wordIsPossible(lowercaseValue) {
