@@ -13,6 +13,7 @@ class MasterViewController: UITableViewController {
 
     var userAnswers = [String]()
     var allWords = [String]()
+    let minimumAnswerCharactersLength = 2
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,9 +90,14 @@ class MasterViewController: UITableViewController {
             errorMessageController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(errorMessageController, animated: true, completion: nil)
         }
-        
+
         if answer.isEmpty {
             showErrorMessage("Missing answer", "You must provide an answer.")
+            return
+        }
+        
+        if isAnswerTooShort(answer, minimumLength: minimumAnswerCharactersLength) {
+            showErrorMessage("Answer too short", "The minimum answer length is \(minimumAnswerCharactersLength) characters")
             return
         }
         
@@ -141,5 +147,9 @@ class MasterViewController: UITableViewController {
         let checkRange = NSMakeRange(0, answer.characters.count)
         let range = checker.rangeOfMisspelledWordInString(answer, range: checkRange, startingAt: 0, wrap: false, language: "en")
         return range.location == NSNotFound
+    }
+    
+    func isAnswerTooShort(answer: String, minimumLength: Int) -> Bool {
+        return answer.characters.count < minimumLength
     }
 }
