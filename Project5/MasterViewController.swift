@@ -96,14 +96,25 @@ class MasterViewController: UITableViewController {
     }
     
     func wordIsPossible(answer: String) -> Bool {
+        var lowercaseWord = title!.lowercaseString
+        for character in answer.characters {
+            if let position = lowercaseWord.rangeOfString(String(character)) {
+                lowercaseWord.removeAtIndex(position.startIndex)
+            } else {
+                return false
+            }
+        }
         return true
     }
     
     func wordIsOriginal(answer: String) -> Bool {
-        return true
+        return !userAnswers.contains(answer)
     }
     
     func wordIsReal(answer: String) -> Bool {
-        return true
+        let checker = UITextChecker()
+        let checkRange = NSMakeRange(0, answer.characters.count)
+        let range = checker.rangeOfMisspelledWordInString(answer, range: checkRange, startingAt: 0, wrap: false, language: "en")
+        return range.location == NSNotFound
     }
 }
