@@ -83,16 +83,41 @@ class MasterViewController: UITableViewController {
     }
 
     func submitAnswer(answer: String) {
-        let lowercaseAnswer = answer.lowercaseString
-        if wordIsPossible(lowercaseAnswer) &&
-            wordIsOriginal(lowercaseAnswer) &&
-            wordIsReal(lowercaseAnswer) {
-                    userAnswers.insert(answer, atIndex: 0)
-                
-                    // Inserting a row in a table view with animation to provide a visual clue to the user about what is going on.
-                    let indexPath = NSIndexPath(forItem: 0, inSection: 0)
-                    tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        
+        let showErrorMessage = { [unowned self] (title: String, message: String) in
+            let errorMessageController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            errorMessageController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(errorMessageController, animated: true, completion: nil)
         }
+        
+        if answer.isEmpty {
+            showErrorMessage("Missing answer", "You must provide an answer.")
+            return
+        }
+        
+        let lowercaseAnswer = answer.lowercaseString
+
+        if !wordIsPossible(lowercaseAnswer) {
+            showErrorMessage("Word not possible", "You can't spell '\(lowercaseAnswer)' from '\(title!.lowercaseString)'!")
+            return
+        }
+        
+        if !wordIsOriginal(lowercaseAnswer) {
+            showErrorMessage("'\(answer)' word already used", "Be more original!")
+            return
+        }
+        
+        if !wordIsReal(lowercaseAnswer) {
+            showErrorMessage("Unknown word '\(answer)'", "You can't just make words up, you know!")
+            return
+        }
+
+        userAnswers.insert(answer, atIndex: 0)
+        
+        // Inserting a row in a table view with animation to provide a visual clue to the user about what is going on,
+        // instead of reloading the whole table.
+        let indexPath = NSIndexPath(forItem: 0, inSection: 0)
+        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
     
     func wordIsPossible(answer: String) -> Bool {
