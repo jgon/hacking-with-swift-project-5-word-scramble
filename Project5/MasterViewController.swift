@@ -68,9 +68,10 @@ class MasterViewController: UITableViewController {
         alertController.addTextFieldWithConfigurationHandler(nil)
         
         let submitAction = UIAlertAction(title: "Submit", style: .Default, handler: {
-            [unowned self, alertController] (action: UIAlertAction!) in
-            let answerTextField = alertController.textFields![0]
-            self.submitAnswer(answerTextField.text!)
+                // self and alertController are unowned references to prevent memory leaks in the closure (circular references).
+                [unowned self, alertController] (action: UIAlertAction!) in
+                let answerTextField = alertController.textFields![0]
+                self.submitAnswer(answerTextField.text!)
             }
         )
         alertController.addAction(submitAction)
@@ -81,28 +82,28 @@ class MasterViewController: UITableViewController {
         presentViewController(alertController, animated: true, completion: nil)
     }
 
-    func submitAnswer(value: String) {
-        let lowercaseValue = value.lowercaseString
-        if wordIsPossible(lowercaseValue) {
-            if wordIsOriginal(lowercaseValue) {
-                if wordIsReal(lowercaseValue) {
-                    userAnswers.insert(value, atIndex: 0)
+    func submitAnswer(answer: String) {
+        let lowercaseAnswer = answer.lowercaseString
+        if wordIsPossible(lowercaseAnswer) &&
+            wordIsOriginal(lowercaseAnswer) &&
+            wordIsReal(lowercaseAnswer) {
+                    userAnswers.insert(answer, atIndex: 0)
+                
+                    // Inserting a row in a table view with animation to provide a visual clue to the user about what is going on.
                     let indexPath = NSIndexPath(forItem: 0, inSection: 0)
                     tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-                }
-            }
         }
     }
     
-    func wordIsPossible(value: String) -> Bool {
+    func wordIsPossible(answer: String) -> Bool {
         return true
     }
     
-    func wordIsOriginal(value: String) -> Bool {
+    func wordIsOriginal(answer: String) -> Bool {
         return true
     }
     
-    func wordIsReal(value: String) -> Bool {
+    func wordIsReal(answer: String) -> Bool {
         return true
     }
 }
