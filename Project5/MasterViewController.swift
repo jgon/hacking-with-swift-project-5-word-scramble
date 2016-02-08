@@ -16,7 +16,9 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "promptForAnswer")
+        
         allWords = loadWordsFromFile(NSBundle.mainBundle())
         startGame()
     }
@@ -39,14 +41,14 @@ class MasterViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
-        let object = userAnswers[indexPath.row]
-        cell.textLabel!.text = object
+        let userAnswer = userAnswers[indexPath.row]
+        cell.textLabel!.text = userAnswer
         return cell
     }
     
     func loadWordsFromFile(bundle: NSBundle) -> [String] {
         let defaultResult = ["silkworm"]
-        if let wordsFilePath = bundle.pathForResource("start", ofType: "txt") {
+        if let wordsFilePath = bundle.pathForResource("words", ofType: "txt") {
             if let wordsFileContent = try? String(contentsOfFile: wordsFilePath, usedEncoding: nil) {
                 return wordsFileContent.componentsSeparatedByString("\n")
             }
@@ -67,10 +69,12 @@ class MasterViewController: UITableViewController {
         let alertController = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .Alert)
         alertController.addTextFieldWithConfigurationHandler(nil)
 
-        let submitAction = UIAlertAction(title: "Submit", style: .Default) { [unowned self, alertController] (action: UIAlertAction!) in
-            let answer = alertController.textFields![0]
-            self.submitAnswer(answer.text!)
-        }
+        let submitAction = UIAlertAction(title: "Submit", style: .Default, handler: {
+            [unowned self, alertController] (action: UIAlertAction!) in
+                let answerTextField = alertController.textFields![0]
+                self.submitAnswer(answerTextField.text!)
+            }
+        )
         alertController.addAction(submitAction)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
@@ -80,6 +84,27 @@ class MasterViewController: UITableViewController {
     }
     
     func submitAnswer(value: String) {
-        
+        let lowercaseValue = value.lowercaseString
+        if wordIsPossible(lowercaseValue) {
+            if wordIsOriginal(lowercaseValue) {
+                if wordIsReal(lowercaseValue) {
+                    userAnswers.insert(value, atIndex: 0)
+                    let indexPath = NSIndexPath(forItem: 0, inSection: 0)
+                    tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                }
+            }
+        }
+    }
+    
+    func wordIsPossible(value: String) -> Bool {
+        return true
+    }
+    
+    func wordIsOriginal(value: String) -> Bool {
+        return true
+    }
+    
+    func wordIsReal(value: String) -> Bool {
+        return true
     }
 }

@@ -13,7 +13,7 @@
 		C47A14081C08BA380027E1BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C47A14071C08BA380027E1BA /* Assets.xcassets */; };
 		C47A140B1C08BA380027E1BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C47A14091C08BA380027E1BA /* LaunchScreen.storyboard */; };
 		C47A14161C08BA380027E1BA /* Project5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A14151C08BA380027E1BA /* Project5Tests.swift */; };
-		C47A14251C0A2CA50027E1BA /* start.txt in Resources */ = {isa = PBXBuildFile; fileRef = C47A14241C0A2CA50027E1BA /* start.txt */; };
+		C47A14251C0A2CA50027E1BA /* words.txt in Resources */ = {isa = PBXBuildFile; fileRef = C47A14241C0A2CA50027E1BA /* words.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +37,7 @@
 		C47A14111C08BA380027E1BA /* Project5Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Project5Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C47A14151C08BA380027E1BA /* Project5Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project5Tests.swift; sourceTree = "<group>"; };
 		C47A14171C08BA380027E1BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C47A14241C0A2CA50027E1BA /* start.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = start.txt; sourceTree = "<group>"; };
+		C47A14241C0A2CA50027E1BA /* words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +102,7 @@
 		C47A14231C0A2CA50027E1BA /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				C47A14241C0A2CA50027E1BA /* start.txt */,
+				C47A14241C0A2CA50027E1BA /* words.txt */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -189,7 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C47A140B1C08BA380027E1BA /* LaunchScreen.storyboard in Resources */,
-				C47A14251C0A2CA50027E1BA /* start.txt in Resources */,
+				C47A14251C0A2CA50027E1BA /* words.txt in Resources */,
 				C47A14081C08BA380027E1BA /* Assets.xcassets in Resources */,
 				C47A14061C08BA380027E1BA /* Main.storyboard in Resources */,
 			);
