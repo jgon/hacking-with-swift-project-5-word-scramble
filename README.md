@@ -1,5 +1,7 @@
 # Hacking with Swift - Project 5: Word Scramble
 
+Create an anagram game while learning about closures and booleans.
+
 [Hacking with Swift](https://www.hackingwithswift.com) tutorial
 [Project 5: Word scramble](https://www.hackingwithswift.com/read/5/) covering:
 
